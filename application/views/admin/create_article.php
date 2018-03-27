@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container article-list">
 
     <div class="form-create">
 

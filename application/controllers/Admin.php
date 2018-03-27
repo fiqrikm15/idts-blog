@@ -15,6 +15,7 @@ class Admin extends CI_Controller
         $data['article'] = $this->Article->get('article');
 
         $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('footer', $data);
     }
@@ -23,6 +24,7 @@ class Admin extends CI_Controller
     {
         $data['title'] = $page;
         $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
         $this->load->view('admin/create_article', $data);
         $this->load->view('footer', $data);
     }
@@ -62,6 +64,7 @@ class Admin extends CI_Controller
         $data['article'] = $this->Article->get_by_id('article', $id);
 
         $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
         $this->load->view('admin/edit_article', $data);
         $this->load->view('footer', $data);
     }
@@ -69,8 +72,10 @@ class Admin extends CI_Controller
     function edit_action()
     {
         $id = $this->uri->segment(3);
+        $id_user = $this->uri->segment(4);
 
         $data = array(
+            'id_user' => $id_user,
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
             'content' => $this->input->post('content'),

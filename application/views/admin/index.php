@@ -1,6 +1,4 @@
-<div class="container">
-
-    <p><?php echo anchor(site_url('admin/create_article'), 'Create Article', 'class="btn btn-success"'); ?></p>
+<div class="container article-list">
 
     <h3 align="center">Article List</h3>
 

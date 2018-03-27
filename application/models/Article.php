@@ -26,9 +26,14 @@ class Article extends CI_Model
 
     function update($tb, $data, $id)
     {
+        $this->db->set($data);
         $this->db->where('id_article', $id);
-        $this->db->update($tb, $data);
-        
+        $edit = $this->db->update($tb, $data);
+
+        if($edit)
+        {
+            return true;
+        }
     }
 
     function delete($tb, $id)

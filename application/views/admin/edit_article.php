@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container article-list">
 
     <div class="form-create">
 
-        <?php echo form_open(site_url('admin/edit_action')); ?>
+        <?php echo form_open(site_url('admin/edit_action/'.$article[0]['id_article'].'/'.$article[0]['id_user'])); ?>
 
         <h3 align="center">Edit Article</h3><br>
 

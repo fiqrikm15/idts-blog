@@ -9,7 +9,39 @@ body{
     margin-top: 15px;
 }
 
+.article-list
+{
+    background: #fff; 
+    padding: 25px; 
+    float: left;
+    width: 70%;
+    margin-left: 15px;
+    transform: translateY(-24px);
+}
+
+.circle{
+    width: 100px;
+    height: 100px;
+    background: lemonchiffon;
+    border-radius: 50px;
+    margin: 20px;
+}
+
+.name{
+    margin: 0 20px 20px 20px;
+}
+
+.sidebar{
+    width: 15%;
+    float: left;
+}
+
 .form-create{
     background: white;
     padding: 50px;
+}
+
+.sidebar{
+    margin-left: 50px;
+    background: #fff;
 }
