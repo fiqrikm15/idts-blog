@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
+}
+
+body{
+    background: rgb(248, 248, 248);
+    margin-top: 15px;
+}
+
+.form-create{
+    background: white;
+    padding: 50px;
+}
