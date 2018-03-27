@@ -25,6 +25,7 @@ body{
     background: lemonchiffon;
     border-radius: 50px;
     margin: 20px;
+    border: 1px solid #ccc;
 }
 
 .name{
