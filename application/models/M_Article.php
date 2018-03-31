@@ -1,5 +1,5 @@
 <?php
-class Article extends CI_Model 
+class M_Article extends CI_Model 
 {
     function get($tb)
     {
@@ -13,6 +13,12 @@ class Article extends CI_Model
     {
         $this->db->where('id_article', $id);
         return $this->db->get($tb)->result_array();
+    }
+
+    function get_article_public($tb)
+    {
+        $this->db->where('status', 'Publish');
+        return $this->db->get($tb)->result();
     }
 
     function add($tb, $data)

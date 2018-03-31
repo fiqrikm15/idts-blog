@@ -7,7 +7,7 @@
                 <img class="circle" src="<?php echo base_url(); ?>/assets/img/profile.png"></img><br>
                 <p class="name">Welcome, </p>
             </li>
-
+            <hr>
             <li class="nav-item">
                 <?php echo anchor(site_url('admin'), 'Article List', 'class="nav-link active"'); ?>
             </li>

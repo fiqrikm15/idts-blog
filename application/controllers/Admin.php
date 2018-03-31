@@ -12,7 +12,7 @@ class Admin extends CI_Controller
     function index($page='Admin Panel')
     {
         $data['title'] = $page;
-        $data['article'] = $this->Article->get('article');
+        $data['article'] = $this->M_Article->get('article');
 
         $this->load->view('header', $data);
         $this->load->view('sidebar', $data);
@@ -41,7 +41,7 @@ class Admin extends CI_Controller
             'last_update' => date('Y-m-d')
         );
 
-        $insert = $this->Article->add('article', $data);
+        $insert = $this->M_Article->add('article', $data);
 
         if($insert)
         {
@@ -61,7 +61,7 @@ class Admin extends CI_Controller
 
         $data['title'] = 'Edit Article';
         $data['ids'] = $id;
-        $data['article'] = $this->Article->get_by_id('article', $id);
+        $data['article'] = $this->M_Article->get_by_id('article', $id);
 
         $this->load->view('header', $data);
         $this->load->view('sidebar', $data);
@@ -83,7 +83,7 @@ class Admin extends CI_Controller
             'last_update' => date('Y-m-d')
         );
 
-        $edit = $this->Article->update('article', $data, $id);
+        $edit = $this->M_Article->update('article', $data, $id);
 
         if($edit)
         {
@@ -100,7 +100,7 @@ class Admin extends CI_Controller
     function delete()
     {
         $id = $this->uri->segment(3);
-        $delete = $this->Article->delete('article', $id);
+        $delete = $this->M_Article->delete('article', $id);
 
         if($delete)
         {

@@ -28,7 +28,12 @@
                     <td><?php echo $articles->tgl_create; ?></td>
                     <td><?php echo $articles->last_update; ?></td>
                     <td><?php echo anchor(site_url('admin/edit/'.$articles->id_article), 'Edit', 'class="btn btn-outline-warning btn-sm"'); ?></td>
-                    <td><?php echo anchor(site_url('admin/delete/'.$articles->id_article), 'Delete', 'class="btn btn-outline-danger btn-sm"'); ?></td>
+                    <td><?php 
+                    $attr = array(
+                        'onclick' => "return confirm('Are you sure?')",
+                        'class' => 'btn btn-outline-danger btn-sm'
+                    );
+                    echo anchor(site_url('admin/delete/'.$articles->id_article), 'Delete', $attr); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
