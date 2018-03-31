@@ -7,7 +7,6 @@
             <tr>
                 <th>No.</th>
                 <th>Title</th>
-                <th>Author</th>
                 <th>Status</th>
                 <th>Date Created</th>
                 <th>Last Update</th>
@@ -23,7 +22,6 @@
                 <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo $articles->title; ?></td>
-                    <td><?php echo $articles->nama; ?></td>
                     <td><?php echo $articles->status; ?></td>
                     <td><?php echo $articles->tgl_create; ?></td>
                     <td><?php echo $articles->last_update; ?></td>

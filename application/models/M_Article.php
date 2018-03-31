@@ -6,6 +6,7 @@ class M_Article extends CI_Model
         $this->db->select("article.id_article, article.title, article.status, article.tgl_create, article.last_update, users.nama");
         $this->db->from($tb);
         $this->db->join('users', 'users.id_user = article.id_user');
+        //$this->db->join('users', 'users.id_user = article.id_user');
         return $this->db->get()->result();
     }
 

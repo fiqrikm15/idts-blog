@@ -35,7 +35,7 @@ class Admin extends CI_Controller
             'id_user' => '1',
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
-            'content' => $this->input->post('content'),
+            'content' => nl2br($this->input->post('content')),
             'status' => 'Publish',
             'tgl_create' => date('Y-m-d'),
             'last_update' => date('Y-m-d')
