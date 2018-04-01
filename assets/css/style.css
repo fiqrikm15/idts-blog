@@ -14,9 +14,9 @@ body{
     background: #fff; 
     padding: 25px; 
     float: left;
-    width: 70%;
+    width: 65%;
     margin-left: 15px;
-    transform: translateY(-24px);
+    /*transform: translateY(-24px);*/
     box-shadow: 0px 0px 5px 0.1px rgb(145, 145, 145);
     -webkit-box-shadow: 0px 0px 5px 0.1px rgb(145, 145, 145);
     -moz-box-shadow: 0px 0px 5px 0.1px rgb(145, 145, 145);
@@ -35,7 +35,7 @@ body{
 }
 
 .sidebar{
-    width: 15%;
+    width: 20%;
     float: left;
     box-shadow: 0px 0px 5px 0.1px rgb(145, 145, 145);
     -webkit-box-shadow: 0px 0px 5px 0.1px rgb(145, 145, 145);
@@ -55,7 +55,7 @@ body{
 }
 
 .sidebar{
-    margin-left: 50px;
+    /*margin-left: 20px;*/
     background: #fff;
 }
 

@@ -2,17 +2,24 @@
 
 class M_User extends CI_Model
 {
+    function register($data)
+    {
+        $this->db->insert('users', $data);
+    }
+
     function login($username, $password)
     {
         $query = $this->db->get_where('users', array('username' => $username, 'password' => md5($password)));
 
         if($query->num_rows() == 1)
         {
-            $row = $this->db->query("select id_user from users where username ='".$username."'");
+            $row = $this->db->query("select id_user, nama from users where username ='".$username."'");
             $id_user = $row->row();
+            $nama = $id_user->nama;
             $id = $id_user->id_user;
 
             $this->session->set_userdata('username', $username);
+            $this->session->set_userdata('nama', $nama);
             $this->session->set_userdata('id_login', uniqid(rand()));
             $this->session->set_userdata('id', $id);
 
@@ -43,9 +50,9 @@ class M_User extends CI_Model
 
     function logout()
     {
-        $items = array('username', 'id_login', 'id');
+        $items = array('username', 'id_login', 'id', 'nama');
         $this->session->unset_userdata($items);
         $this->session->sess_destroy();
-        redirect(site_url('user'));
+        redirect(site_url('/'));
     }
 }

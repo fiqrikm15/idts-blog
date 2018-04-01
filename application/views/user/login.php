@@ -24,6 +24,7 @@
         <div class="form-group row">
             <div class="col-sm-12">
             <input type="submit" class="btn btn-primary btn-sm btn-lg btn-block" id="login-btn" name="login-btn" value="Login">
+            <h6>Do you have account? <?php echo anchor(site_url('user/register'), 'Register Here!', array('class' => ''));?></h6>
             </div>
         </div>
 

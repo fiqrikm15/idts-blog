@@ -1,11 +1,11 @@
-<dic class="container">
+<div class="container">
 
     <div class="sidebar">
 
         <ul class="nav flex-column">
             <li class="nav-item">
                 <img class="circle" src="<?php echo base_url(); ?>/assets/img/profile.png"></img><br>
-                <p class="name">Welcome, </p>
+                <p class="name">Welcome, <?php echo $this->session->userdata['nama']; ?></p>
             </li>
             <hr>
             <li class="nav-item">
