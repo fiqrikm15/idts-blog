@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url_helper');
+        $this->M_User->cek_login();
     }
 
     function index($page='Admin Panel')

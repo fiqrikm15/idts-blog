@@ -17,7 +17,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Logout</a>
+                <?php echo anchor(site_url('user/logout'), 'Logout', array('class' => 'nav-link disabled')); ?>
             </li>
         </ul>
 
