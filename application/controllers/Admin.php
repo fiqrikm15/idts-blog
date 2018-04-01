@@ -13,7 +13,7 @@ class Admin extends CI_Controller
     function index($page='Admin Panel')
     {
         $data['title'] = $page;
-        $data['article'] = $this->M_Article->get('article');
+        $data['article'] = $this->M_Article->get_byid_user('article');
 
         $this->load->view('header', $data);
         $this->load->view('sidebar', $data);

@@ -10,6 +10,15 @@ class M_Article extends CI_Model
         return $this->db->get()->result();
     }
 
+    function get_byid_user($tb)
+    {
+        $this->db->select("article.id_article, article.title, article.status, article.tgl_create, article.last_update, users.nama");
+        $this->db->from($tb);
+        $this->db->join('users', 'users.id_user ='.$this->session->userdata('id'));
+        //$this->db->join('users', 'users.id_user = article.id_user');
+        return $this->db->get()->result();
+    }
+
     function get_by_id($tb, $id)
     {
         $this->db->where('id_article', $id);

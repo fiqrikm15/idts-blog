@@ -1,5 +1,5 @@
 <br>
-<div class="container">
+<div class="container register-form">
 
     <div class="form-create">
 
@@ -8,28 +8,33 @@
         <h3 align="center">New User Register</h3><br>
 
         <div class="form-group">
-            <label for="title">Nama</label>
-            <input type="text" name="nama" id='title' placeholder='Type title for article' class='form-control'>
+            <label for="title">Name</label>
+            <input type="text" name="nama" id='title' class='form-control'>
+            <p class="error"><?php echo form_error('nama'); ?></p>
         </div>
 
         <div class="form-group">
             <label for="title">Username</label>
-            <input type="text" name="username" id='title' placeholder='Type title for article' class='form-control'>
+            <input type="text" name="username" id='title' class='form-control'>
+            <p class="error"><?php echo form_error('username'); ?></p>
         </div>
 
         <div class="form-group">
             <label for="slug">Email</label>
-            <input type="text" name="email" id='slug' placeholder='Type slug for article' class='form-control'>
+            <input type="text" name="email" id='slug' class='form-control'>
+            <p class="error"><?php echo form_error('email'); ?></p>
         </div>
 
         <div class="form-group">
             <label for="slug">Password</label>
-            <input type="text" name="password" id='slug' placeholder='Type slug for article' class='form-control'>
+            <input type="password" name="password" id='slug' class='form-control'>
+            <p class="error"><?php echo form_error('password'); ?></p>
         </div>
 
         <div class="form-group">
             <label for="slug">Confirm Password</label>
-            <input type="text" name="c_password" id='slug' placeholder='Type slug for article' class='form-control'>
+            <input type="password" name="c_password" id='slug' class='form-control'>
+            <p class="error"><?php echo form_error('c_password'); ?></p>
         </div>
 
         <div class="form-group">
