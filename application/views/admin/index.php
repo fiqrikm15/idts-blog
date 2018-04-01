@@ -21,7 +21,7 @@
             ?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo $articles->title; ?></td>
+                    <td><?php echo anchor(site_url('admin/article/'.$articles->id_article), $articles->title) ?></td>
                     <td><?php echo $articles->status; ?></td>
                     <td><?php echo $articles->tgl_create; ?></td>
                     <td><?php echo $articles->last_update; ?></td>

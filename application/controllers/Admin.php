@@ -32,27 +32,42 @@ class Admin extends CI_Controller
 
     function create_action()
     {
-        $data = array(
-            'id_user' => '1',
-            'title' => $this->input->post('title'),
-            'slug' => $this->input->post('slug'),
-            'content' => nl2br($this->input->post('content')),
-            'status' => 'Publish',
-            'tgl_create' => date('Y-m-d'),
-            'last_update' => date('Y-m-d')
+        $filename = md5(uniqid(rand(), true));
+        $config = array(
+            'upload_path' => 'uploads/header-img',
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'file_name' => $filename,
+            'max_size' => 1000
         );
 
-        $insert = $this->M_Article->add('article', $data);
+        $this->load->library('upload', $config);
 
-        if($insert)
+        if($this->upload->do_upload('header-pic'))
         {
-            $this->session->set_flashdata('insert_sess', 'Insert Data Sucess');
-            redirect(site_url('admin'));
-        }
-        else
-        {
-            $this->session->set_flashdata('insert_sess', 'Insert Data Gagal');
-            redirect(site_url('admin'));
+            $file_data = $this->upload->data();
+            $data['image'] = $file_data['file_name'];
+            $data_article = array(
+                'id_user' => $this->session->userdata['id'],
+                'title' => $this->input->post('title'),
+                'slug' => $this->input->post('slug'),
+                'content' => nl2br($this->input->post('content')),
+                'image' =>  $file_data['file_name'],
+                'status' => $this->input->post('status'),
+                'tgl_create' => date('Y-m-d'),
+                'last_update' => date('Y-m-d')
+            );
+
+            //echo $data_article;
+
+            $insert = $this->M_Article->add('article', $data_article);
+
+            if ($insert) {
+                $this->session->set_flashdata('insert_sess', 'Insert Data Sucess');
+                redirect(site_url('admin'));
+            } else {
+                $this->session->set_flashdata('insert_sess', 'Insert Data Gagal');
+                redirect(site_url('admin'));
+            }
         }
     }
 
@@ -74,27 +89,38 @@ class Admin extends CI_Controller
     {
         $id = $this->uri->segment(3);
         $id_user = $this->uri->segment(4);
-
-        $data = array(
-            'id_user' => $id_user,
-            'title' => $this->input->post('title'),
-            'slug' => $this->input->post('slug'),
-            'content' => $this->input->post('content'),
-            'status' => $this->input->post('status'),
-            'last_update' => date('Y-m-d')
+        $filename = md5(uniqid(rand(), true));
+        $config = array(
+            'upload_path' => 'uploads/header-img',
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'file_name' => $filename,
+            'max_size' => 1000
         );
 
-        $edit = $this->M_Article->update('article', $data, $id);
+        $this->load->library('upload', $config);
 
-        if($edit)
-        {
-            $this->session->set_flashdata('edit_sess', 'Edit Data Sucess');
-            redirect(site_url('admin'));
-        }
-        else
-        {
-            $this->session->set_flashdata('edit_sess', 'Edit Data Gagal');
-            redirect(site_url('admin'));
+        if($this->upload->do_upload('header-pic')) {
+            $file_data = $this->upload->data();
+            $data['image'] = $file_data['file_name'];
+            $data_article = array(
+                'id_user' => $id_user,
+                'title' => $this->input->post('title'),
+                'slug' => $this->input->post('slug'),
+                'content' => $this->input->post('content'),
+                'status' => $this->input->post('status'),
+                'image' =>  $file_data['file_name'],
+                'last_update' => date('Y-m-d')
+            );
+
+            $edit = $this->M_Article->update('article', $data_article, $id);
+
+            if ($edit) {
+                $this->session->set_flashdata('edit_sess', 'Edit Data Sucess');
+                redirect(site_url('admin'));
+            } else {
+                $this->session->set_flashdata('edit_sess', 'Edit Data Gagal');
+                redirect(site_url('admin'));
+            }
         }
     }
 
@@ -113,5 +139,18 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('delete_sess', 'Delete Data Gagal');
             redirect(site_url('admin'));
         }
+    }
+
+    function article()
+    {
+        $id = $id = $this->uri->segment(3);
+        $article = $this->M_Article->article_detail('article', $id);
+        $data['title'] = 'Article-'.$article[0]['title'];
+        $data['article'] = $article;
+
+        $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
+        $this->load->view('admin/detail_article', $data);
+        $this->load->view('footer', $data);
     }
 }

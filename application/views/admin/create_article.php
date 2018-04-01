@@ -2,7 +2,7 @@
 
     <div class="form-create">
 
-        <?php echo form_open(site_url('admin/create_action')); ?>
+        <?php echo form_open_multipart(site_url('admin/create_action')); ?>
 
         <h3 align="center">Create Article</h3><br>
 
@@ -14,6 +14,20 @@
         <div class="form-group">
             <label for="slug">Slug</label>
             <input type="text" name="slug" id='slug' placeholder='Type slug for article' class='form-control'>
+        </div>
+
+        <div class="form-group">
+            <label for="">Status</label>
+            <select name="status" class="form-control col-sm-2">
+                <option value="Publish">Publish</option>
+                <option value="Draft">Draft</option>
+                <option value="Unpublish">Unpublish</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="slug">Header Image (Max size: 1MB)</label><br>
+            <input type="file" id="file2" name="header-pic">
         </div>
 
         <div class="form-group">

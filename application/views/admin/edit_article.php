@@ -2,7 +2,7 @@
 
     <div class="form-create">
 
-        <?php echo form_open(site_url('admin/edit_action/'.$article[0]['id_article'].'/'.$article[0]['id_user'])); ?>
+        <?php echo form_open_multipart(site_url('admin/edit_action/'.$article[0]['id_article'].'/'.$article[0]['id_user'])); ?>
 
         <h3 align="center">Edit Article</h3><br>
 
@@ -33,6 +33,11 @@
                     <option value="Unpublish" selected>Unpublish</option>
                 <?php endif; ?>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="slug">Header Image (Max size: 1MB)</label><br>
+            <input type="file" id="file2" name="header-pic">
         </div>
 
         <div class="form-group">

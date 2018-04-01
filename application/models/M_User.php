@@ -13,14 +13,16 @@ class M_User extends CI_Model
 
         if($query->num_rows() == 1)
         {
-            $row = $this->db->query("select id_user, nama from users where username ='".$username."'");
+            $row = $this->db->query("select id_user, nama, foto_profile from users where username ='".$username."'");
             $id_user = $row->row();
             $nama = $id_user->nama;
+            $profile = $id_user->foto_profile;
             $id = $id_user->id_user;
 
             $this->session->set_userdata('username', $username);
             $this->session->set_userdata('nama', $nama);
             $this->session->set_userdata('id_login', uniqid(rand()));
+            $this->session->set_userdata('foto_profile', $profile);
             $this->session->set_userdata('id', $id);
 
             redirect(site_url('admin'));
@@ -50,7 +52,7 @@ class M_User extends CI_Model
 
     function logout()
     {
-        $items = array('username', 'id_login', 'id', 'nama');
+        $items = array('username', 'id_login', 'id', 'nama', 'foto_profile');
         $this->session->unset_userdata($items);
         $this->session->sess_destroy();
         redirect(site_url('/'));

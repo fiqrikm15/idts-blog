@@ -3,7 +3,7 @@ class M_Article extends CI_Model
 {
     function get($tb)
     {
-        $this->db->select("article.id_article, article.title, article.status, article.tgl_create, article.last_update, users.nama");
+        $this->db->select("article.*', users.nama");
         $this->db->from($tb);
         $this->db->join('users', 'users.id_user = article.id_user');
         //$this->db->join('users', 'users.id_user = article.id_user');
@@ -12,10 +12,10 @@ class M_Article extends CI_Model
 
     function get_byid_user($tb)
     {
-        $this->db->select("article.id_article, article.title, article.status, article.tgl_create, article.last_update, users.nama");
+        $this->db->select("article.*, users.nama");
         $this->db->from($tb);
-        $this->db->join('users', 'users.id_user ='.$this->session->userdata('id'));
-        //$this->db->join('users', 'users.id_user = article.id_user');
+        $this->db->where('article.id_user', $this->session->userdata('id'));
+        $this->db->join('users', 'users.id_user = article.id_user');
         return $this->db->get()->result();
     }
 
@@ -25,10 +25,22 @@ class M_Article extends CI_Model
         return $this->db->get($tb)->result_array();
     }
 
+    function article_detail($tb, $id)
+    {
+        $this->db->select("article.*, users.nama");
+        $this->db->from($tb);
+        $this->db->where('article.id_article', $id);
+        $this->db->join('users', 'users.id_user = article.id_user');
+        return $this->db->get()->result_array();
+    }
+
     function get_article_public($tb)
     {
+        $this->db->select("article.*, users.nama");
+        $this->db->from($tb);
         $this->db->where('status', 'Publish');
-        return $this->db->get($tb)->result();
+        $this->db->join('users', 'users.id_user = article.id_user');
+        return $this->db->get()->result();
     }
 
     function add($tb, $data)

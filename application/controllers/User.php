@@ -74,21 +74,31 @@ class User extends CI_Controller
             array(
                 'field' => 'username',
                 'label' => 'username',
-                'rules' => 'required'
+                'rules' => 'required|is_unique[users.username]',
+                'errors' => array(
+                    'is_unique' => 'Email sudah terpakai.',
+                    'required' => 'Isikan username terlebih dahulu.'
+                )
             ),
 
             array(
                 'field' => 'email',
                 'label' => 'email',
-                'rules' => 'required|valid_email|is_unique[users.email]'
+                'rules' => 'required|valid_email|is_unique[users.email]',
+                'errors' => array(
+                    'is_unique' => 'Email sudah terdaftar.',
+                    'valid_email' => 'Tolong gunakan email yang benar.',
+                    'required' => 'Isikan email terlebih dahulu.'
+                )
             ),
 
             array(
                 'field' => 'password',
                 'label' => 'password',
-                'rules' => 'required',
+                'rules' => 'required|min_length[8]',
                 'errors' => array(
                     'required' => 'Isi password dengan benar.',
+                    'min_length' => 'Gunakan password dengan jumlah karakter minimal 8 karakter.'
                 )
             ),
 
@@ -97,8 +107,20 @@ class User extends CI_Controller
                 'label' => 'c_password',
                 'rules' => 'required|matches[password]',
                 'errors' => array(
-                    'required' => 'Password harus sama dengan password di atas.',
+                    'matches' => 'Password harus sama dengan password di atas.',
                 )
+            ),
+
+            array(
+                'field' => 'jKelamin',
+                'label' => 'jKelamin',
+                'rules' => 'required'
+            ),
+
+            array(
+                'field' => 'agama',
+                'label' => 'agama',
+                'rules' => 'required'
             )
         );
 
@@ -117,16 +139,50 @@ class User extends CI_Controller
             $username = $this->input->POST('username');
             $email = $this->input->POST('email');
             $password = md5($this->input->POST('password'));
+            $jenis_kelamin = $this->input->POST('jKelamin');
+            $alamat = $this->input->POST('alamat');
+            $kode_pos = $this->input->POST('kode_pos');
+            $agama = $this->input->POST('agama');
+            //$profi_pic = $this->input->POST('email');
 
-            $user_data = array(
-                'nama' => $nama,
-                'email' => $email,
-                'username' => $username,
-                'password' => $password
+            $filename = md5(uniqid(rand(), true));
+            $config = array(
+                'upload_path' => 'uploads/profiles',
+                'allowed_types' => "gif|jpg|png|jpeg",
+                'file_name' => $filename,
+                'max_size' => 1000
             );
 
-            $this->M_User->register($user_data);
-            redirect(site_url('user'));
+            $this->load->library('upload', $config);
+
+            if($this->upload->do_upload('profile-pic'))
+            {
+                $file_data = $this->upload->data();
+                $data['file_dir'] = $file_data['file_name'];
+                $user_data = array(
+                    'nama' => $nama,
+                    'email' => $email,
+                    'username' => $username,
+                    'password' => $password,
+                    'foto_profile' => $file_data['file_name'],
+                    'j_kelamin' => $jenis_kelamin,
+                    'alamat' => $alamat,
+                    'kode_pos' => $kode_pos,
+                    'agama' => $agama
+                );
+
+                $this->M_User->register($user_data);
+                $this->session->set_flashdata('Sukses', 'Anda berhasil terdaftar');
+                redirect(site_url('user'));
+            }
+            else
+            {
+                $this->session->set_flashdata('Sukses', 'Anda berhasil terdaftar');
+                $data['title'] = "Register New User";
+                $this->load->view('header', $data);
+                $this->load->view('user/register', $data);
+                $this->load->view('footer', $data);
+            }
         }
     }
 }
