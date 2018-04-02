@@ -40,6 +40,7 @@ class M_Article extends CI_Model
         $this->db->from($tb);
         $this->db->where('status', 'Publish');
         $this->db->join('users', 'users.id_user = article.id_user');
+        $this->db->order_by('last_update', 'DESC');
         return $this->db->get()->result();
     }
 

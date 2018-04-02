@@ -122,6 +122,27 @@ class Admin extends CI_Controller
                 redirect(site_url('admin'));
             }
         }
+        else
+        {
+            $data_article = array(
+                'id_user' => $id_user,
+                'title' => $this->input->post('title'),
+                'slug' => $this->input->post('slug'),
+                'content' => $this->input->post('content'),
+                'status' => $this->input->post('status'),
+                'last_update' => date('Y-m-d')
+            );
+
+            $edit = $this->M_Article->update('article', $data_article, $id);
+
+            if ($edit) {
+                $this->session->set_flashdata('edit_sess', 'Edit Data Sucess');
+                redirect(site_url('admin'));
+            } else {
+                $this->session->set_flashdata('edit_sess', 'Edit Data Gagal');
+                redirect(site_url('admin'));
+            }
+        }
     }
 
     function delete()

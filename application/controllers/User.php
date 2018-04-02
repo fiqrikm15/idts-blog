@@ -167,7 +167,7 @@ class User extends CI_Controller
             if($this->upload->do_upload('profile-pic'))
             {
                 $file_data = $this->upload->data();
-                $data['file_dir'] = $file_data['file_name'];
+                $data['foto_prifile'] = $file_data['file_name'];
                 $user_data = array(
                     'nama' => $nama,
                     'email' => $email,
