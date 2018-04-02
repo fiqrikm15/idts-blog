@@ -2,10 +2,16 @@
 
 class User extends CI_Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+    }
+
     function index($page = 'User Login')
     {
         $data['title'] = $page;
         $this->load->view('header', $data);
+        $this->load->view('navbar', $data);
         $this->load->view('user/login', $data);
         $this->load->view('footer', $data);
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -46,6 +52,7 @@ class User extends CI_Controller
         $tt['title'] = 'User Login';
 
         $this->load->view('header', $tt);
+        $this->load->view('navbar', $tt);
         $this->load->view('user/login', $tt);
         $this->load->view('footer', $tt);
     }
@@ -59,6 +66,7 @@ class User extends CI_Controller
     {
         $data['title'] = $page;
         $this->load->view('header', $data);
+        $this->load->view('navbar', $data);
         $this->load->view('user/register', $data);
         $this->load->view('footer', $data);
     }
@@ -130,6 +138,7 @@ class User extends CI_Controller
         {
             $data['title'] = "Register New User";
             $this->load->view('header', $data);
+            $this->load->view('navbar', $data);
             $this->load->view('user/register', $data);
             $this->load->view('footer', $data);
         }
@@ -177,9 +186,10 @@ class User extends CI_Controller
             }
             else
             {
-                $this->session->set_flashdata('Sukses', 'Anda berhasil terdaftar');
+                $this->session->set_flashdata('Gagal', 'Anda gagal terdaftar');
                 $data['title'] = "Register New User";
                 $this->load->view('header', $data);
+                $this->load->view('navbar', $data);
                 $this->load->view('user/register', $data);
                 $this->load->view('footer', $data);
             }

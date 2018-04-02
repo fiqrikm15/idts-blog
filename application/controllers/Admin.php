@@ -153,4 +153,103 @@ class Admin extends CI_Controller
         $this->load->view('admin/detail_article', $data);
         $this->load->view('footer', $data);
     }
+
+    function detail_profile()
+    {
+        $id = $this->session->userdata['id'];
+        $user = $this->M_User->get_profile($id);
+        $data['title'] = $user[0]['nama'];
+        $data['user_data'] = $user;
+
+        $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
+        $this->load->view('admin/detail_profile', $data);
+        $this->load->view('footer', $data);
+    }
+
+    function edit_profile()
+    {
+        $id = $this->session->userdata['id'];
+        $user = $this->M_User->get_profile($id);
+        $data['title'] = $user[0]['nama'];
+        $data['user_data'] = $user;
+
+        $this->load->view('header', $data);
+        $this->load->view('sidebar', $data);
+        $this->load->view('admin/edit_profile', $data);
+        $this->load->view('footer', $data);
+    }
+
+    function edit_profile_act()
+    {
+        $id = $this->uri->segment(3);
+        $nama = $this->input->POST('nama');
+        $username = $this->input->POST('username');
+        $email = $this->input->POST('email');
+        $password = md5($this->input->POST('password'));
+        $jenis_kelamin = $this->input->POST('jKelamin');
+        $alamat = $this->input->POST('alamat');
+        $kode_pos = $this->input->POST('kode_pos');
+        $agama = $this->input->POST('agama');
+        //$profi_pic = $this->input->POST('email');
+
+        $filename = md5(uniqid(rand(), true));
+        $config = array(
+            'upload_path' => 'uploads/profiles',
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'file_name' => $filename,
+            'max_size' => 1000
+        );
+
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload('profile-pic'))
+        {
+            $file_data = $this->upload->data();
+            $data['file_dir'] = $file_data['file_name'];
+            $user_data = array(
+                'nama' => $nama,
+                'email' => $email,
+                'username' => $username,
+                'password' => $password,
+                'foto_profile' => $file_data['file_name'],
+                'j_kelamin' => $jenis_kelamin,
+                'alamat' => $alamat,
+                'kode_pos' => $kode_pos,
+                'agama' => $agama
+            );
+
+            //echo $id;
+            $this->M_User->edit_profile($user_data, $id);
+            $this->session->set_flashdata('Sukses', 'Anda berhasil terdaftar');
+            redirect(site_url('admin/detail_profile'));
+        }
+        else
+        {
+            $user_data = array(
+                'nama' => $nama,
+                'email' => $email,
+                'username' => $username,
+                'password' => $password,
+                'j_kelamin' => $jenis_kelamin,
+                'alamat' => $alamat,
+                'kode_pos' => $kode_pos,
+                'agama' => $agama
+            );
+
+            //echo $id;
+            $this->M_User->edit_profile($user_data, $id);
+            $this->session->set_flashdata('Sukses', 'Anda berhasil terdaftar');
+            redirect(site_url('admin/detail_profile'));
+        }
+
+//        $id = $this->session->userdata['id'];
+//        $user = $this->M_User->get_profile($id);
+//        $data['title'] = $user[0]['nama'];
+//        $data['user_data'] = $user;
+//        $this->load->view('header', $data);
+//        $this->load->view('sidebar', $data);
+//        $this->load->view('admin/edit_profile', $data);
+//        $this->load->view('footer', $data);
+    }
 }

@@ -55,6 +55,29 @@ class M_User extends CI_Model
         $items = array('username', 'id_login', 'id', 'nama', 'foto_profile');
         $this->session->unset_userdata($items);
         $this->session->sess_destroy();
-        redirect(site_url('/'));
+        redirect(site_url('article'));
+    }
+
+    function get_profile($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('users')->result_array();
+    }
+
+    function get_all()
+    {
+        return $this->db->get('users')->result();
+    }
+
+    function edit_profile($data, $id)
+    {
+        $this->db->set($data);
+        $this->db->where('id_user', $id);
+        $edit = $this->db->update('users', $data);
+
+        if($edit)
+        {
+            return true;
+        }
     }
 }
