@@ -29,4 +29,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+<<<<<<< HEAD
+=======
+/db/*
+db/*
+.sql
+>>>>>>> 723cf4b6e55f6170967f6b6bb9ca2abd835844f9
 *.sql
